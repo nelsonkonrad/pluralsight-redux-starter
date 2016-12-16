@@ -1,0 +1,8 @@
+{
+    "presets": ["react", "es2015"],        // Will be working with the react and es2015 preset
+    "env": {
+        "development": {
+            "presets": ["react-hmre"]
+        }
+    }
+}
