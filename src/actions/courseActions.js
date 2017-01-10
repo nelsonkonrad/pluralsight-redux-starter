@@ -1,4 +1,5 @@
 import CourseApi from '../api/mockCourseAPI';
+import {beginAjaxCall, ajaxCallError} from './ajaxStatusActions';
 
 export const LOAD_COURSES_SUCCESS = 'LOAD_COURSES_SUCCESS';
 export const CREATE_COURSE_SUCCESS = 'CREATE_COURSE_SUCCESS';
@@ -18,6 +19,7 @@ export function updateCourseSuccess(course) {
 
 export function loadCourses() {                                  // thunk
     return dispatch => {
+        dispatch(beginAjaxCall());
         return CourseApi.getAllCourses().then(courses => {
             dispatch(loadCoursesSuccess(courses));
         }).catch(error => {
@@ -27,11 +29,12 @@ export function loadCourses() {                                  // thunk
 }
 
 export function saveCourse(course) {
-    return (dispatch, getState) => {                                    // getState: When you want to access the Redux store and get a particular piece of state
+    return (dispatch, getState) => {     
+        dispatch(beginAjaxCall());                               // getState: When you want to access the Redux store and get a particular piece of state
         return CourseApi.saveCourse(course).then(savedCourse => {
-            debugger;
             course.id ? dispatch(updateCourseSuccess(savedCourse)) : dispatch(createCourseSuccess(savedCourse));
         }).catch(error => {
+            dispatch(ajaxCallError(error));
             throw(error);
         });
     };

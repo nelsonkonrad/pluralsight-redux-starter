@@ -1,3 +1,5 @@
+/*eslint-disable import/default */
+// So eslint doesn't complain about a file not having a default export
 // This is our entry point
 import 'babel-polyfill';                                       // There are some features in ES6 that babel cant transpile. For those you need polyfill.
                                                                // In an application we should import just the feature we need. Not everything.
@@ -11,6 +13,7 @@ import {loadCourses} from './actions/courseActions';           // named import
 import {loadAuthors} from './actions/authorActions';           // named import
 import './styles/styles.css';                                  // Importing the css. webpack will bundle it                                 
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'; 
+import '../node_modules/toastr/build/toastr.min.css';
 
 const store = configureStore();                                // Instance of store. Alternatively we can pass a store state (example: when passed by a server)
 store.dispatch(loadCourses());
